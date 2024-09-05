@@ -34,9 +34,9 @@ describe("generate2dGrid", () => {
 	it("should generate a grid biased towards a single character", () => {
 		const biasCharacter = "z";
 		const biasWeight = 0.2;
-		const { occurrences } = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight: 0.2 });
+		const { occurrences } = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight });
 
-		// Check that bias character "b" appears at least 20% of the time
+		// Check that bias character appears at least 20% of the time
 		expect(occurrences[biasCharacter]).toBeGreaterThanOrEqual(biasWeight * 10);
 	});
 });
