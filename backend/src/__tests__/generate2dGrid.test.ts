@@ -39,6 +39,6 @@ describe("generate2dGrid", () => {
     const flattenedArray= grid.reduce((x,y)=>[...x,...y])
     const occurrencesOfBiasedCharacter=flattenedArray.filter(x=>x===biasCharacter).length
 		// Check that bias character appears at least 20% of the time
-		expect(occurrencesOfBiasedCharacter).toBeGreaterThanOrEqual(biasWeight * 10);
+		expect(occurrencesOfBiasedCharacter).toBeGreaterThanOrEqual(biasWeight * 100);
 	});
 });
