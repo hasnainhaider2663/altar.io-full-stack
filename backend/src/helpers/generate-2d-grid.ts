@@ -1,4 +1,5 @@
-import generateRandomCharactor from "./generate-random-character";
+import flattenArray from './flattenArray';
+import generateRandomCharactor from './generate-random-character';
 
 interface IGridProps {
 	numberOfRowsAndColumns: number;
@@ -6,7 +7,7 @@ interface IGridProps {
 	biasWeight?: number;
 }
 export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharacter, biasWeight }: IGridProps) {
-	const grid = [];
+	let grid = [];
 	for (let i = 0; i < numberOfRowsAndColumns; i++) {
 		const row = [];
 		for (let j = 0; j < numberOfRowsAndColumns; j++) {
@@ -14,6 +15,31 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 			row.push(randomCharacter);
 		}
 		grid.push(row);
+	}
+
+	if (biasCharacter && biasWeight) {
+		const flattenedArray = flattenArray(grid); //flatten the array to make counting and indexing simpler
+		let occurrencesOfBiasedCharacter = flattenedArray.filter((x) => x === biasCharacter).length;
+
+		let isBiasMet = occurrencesOfBiasedCharacter < biasWeight * flattenedArray.length;
+
+		// if biasCharacter and biasWeight exist and IF the bias was not met, force the bias with the character in random places
+		if (isBiasMet) {
+			grid = []; // reset the grid
+
+			while (isBiasMet) {
+				const randomizedIndex = Math.floor(Math.random() * flattenedArray.length);
+				flattenedArray[randomizedIndex] = biasCharacter;
+				occurrencesOfBiasedCharacter = flattenedArray.filter((x) => x === biasCharacter).length;
+				isBiasMet = occurrencesOfBiasedCharacter < biasWeight * 100;
+			}
+			// convert back to grid
+			while (flattenedArray.length > 0) {
+				const chunk = flattenedArray.splice(0, 3);
+
+				grid.push(chunk);
+			}
+		}
 	}
 
 	return grid;
