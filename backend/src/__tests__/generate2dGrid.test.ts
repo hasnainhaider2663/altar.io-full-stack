@@ -1,11 +1,5 @@
 import generate2dGrid from "../helpers/generate-2d-grid";
 
-// Mock the generateRandomCharactor function
-jest.mock("../helpers/generate-random-character", () => ({
-	__esModule: true,
-	default: jest.fn(),
-}));
-
 describe("generate2dGrid", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -23,7 +17,7 @@ describe("generate2dGrid", () => {
 
 	it("should generate a 7x7 grid", () => {
 		const grid = generate2dGrid({ numberOfRowsAndColumns: 7 });
-
+		console.log("grid", grid);
 		// Check grid size and content
 		expect(grid).toHaveLength(7);
 		grid.forEach((row) => {
@@ -32,13 +26,15 @@ describe("generate2dGrid", () => {
 	});
 
 	it("should generate a grid biased towards a single character", () => {
-		const biasCharacter = "z";
-		const biasWeight = 0.2;
-		const grid = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight });
-
-    const flattenedArray= grid.reduce((x,y)=>[...x,...y])
-    const occurrencesOfBiasedCharacter=flattenedArray.filter(x=>x===biasCharacter).length
 		// Check that bias character appears at least 20% of the time
+		const biasWeight = 0.2;
+
+		const biasCharacter = "z";
+		const grid = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight });
+		console.log("grid", grid);
+		const flattenedArray = grid.reduce((x, y) => [...x, ...y]);
+		const occurrencesOfBiasedCharacter = flattenedArray.filter((x) => x === biasCharacter).length;
+
 		expect(occurrencesOfBiasedCharacter).toBeGreaterThanOrEqual(biasWeight * 100);
 	});
 });
