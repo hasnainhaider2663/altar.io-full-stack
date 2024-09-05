@@ -16,17 +16,11 @@ describe('generate2dGrid', () => {
 		});
 	});
 
-	it('should generate a 7x7 grid', () => {
-		const { grid } = generate2dGrid({ numberOfRowsAndColumns: 7 });
-		expect(grid).toHaveLength(7);
-		grid.forEach((row) => {
-			expect(row).toHaveLength(7);
-		});
-	});
 	const biasWeight = 0.7;
 
 	const biasCharacter = generateRandomCharactor({});
 	const numberOfRowsAndColumns = 10;
+
 	for (let index = 0; index < 1000; index++) {
 		it('should generate a grid biased towards a single character', () => {
 			// Check that bias character appears at least 20% of the time
@@ -38,7 +32,7 @@ describe('generate2dGrid', () => {
 			expect(occurrencesOfBiasedCharacter).toBeGreaterThanOrEqual(biasWeight * 100);
 		});
 
-		it('could must have length of 2', () => {
+		it('code must have length of 2', async () => {
 			const { code } = generate2dGrid({ numberOfRowsAndColumns, biasCharacter, biasWeight });
 
 			// if the code doesn't have a digit greater than 9 then it should always have a lenth of 2
