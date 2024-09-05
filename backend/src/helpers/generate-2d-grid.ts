@@ -11,7 +11,7 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 	for (let i = 0; i < numberOfRowsAndColumns; i++) {
 		const row = [];
 		for (let j = 0; j < numberOfRowsAndColumns; j++) {
-			const randomCharacter = generateRandomCharactor({biasCharacter, biasWeight}).result;
+			const randomCharacter = generateRandomCharactor({biasCharacter, biasWeight});
 			row.push(randomCharacter);
 			const occurence = map.get(randomCharacter) || 0;
 			map.set(randomCharacter, occurence + 1);

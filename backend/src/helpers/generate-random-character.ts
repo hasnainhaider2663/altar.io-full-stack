@@ -11,5 +11,5 @@ export default function generateRandomCharactor({ biasCharacter, biasWeight }: I
 
 	const randomIndex = Math.floor(Math.random() * characters.length);
 	const result = characters[randomIndex];
-	return { result, randomIndex };
+	return result;
 }
