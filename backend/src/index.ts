@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
-	const result = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter: 'z', biasWeight: 0.5 });
+	const result = generate2dGrid({ numberOfRowsAndColumns: 10 });
 	res.send(result);
 });
 

@@ -1,4 +1,5 @@
-import flattenArray from './flattenArray';
+import calculateCode from './calculate-grid-code';
+import flattenGrid from './flatten-grid';
 import generateRandomCharactor from './generate-random-character';
 
 interface IGridProps {
@@ -18,7 +19,7 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 	}
 
 	if (biasCharacter && biasWeight) {
-		const flattenedArray = flattenArray(grid); //flatten the array to make counting and indexing simpler
+		const flattenedArray = flattenGrid(grid); //flatten the array to make counting and indexing simpler
 		let occurrencesOfBiasedCharacter = flattenedArray.filter((x) => x === biasCharacter).length;
 
 		let isBiasMet = occurrencesOfBiasedCharacter < biasWeight * flattenedArray.length;
@@ -41,6 +42,7 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 			}
 		}
 	}
+	const code = calculateCode(grid);
 
-	return grid;
+	return { grid, code };
 }
