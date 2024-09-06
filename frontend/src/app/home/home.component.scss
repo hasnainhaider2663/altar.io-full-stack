@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 960px;
+  max-width: var(--container-width);
   margin: auto;
   img {
     max-width: 100px;
@@ -25,5 +25,34 @@
       border-radius: 4px;
       border: 2px solid var(--border-color);
     }
+  }
+}
+.footer {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  gap: 15px;
+  .status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    &::before {
+      display: block;
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 50%;
+    }
+  }
+  .code {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 15px 30px;
+    min-width: 200px;
+    text-transform: uppercase;
+    text-align: center;
   }
 }
