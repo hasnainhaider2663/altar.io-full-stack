@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: auto;
+  img {
+    max-width: 100px;
+  }
+  button {
+    padding: 15px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: var(--primary-color);
+  }
+  .input-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    input {
+      height: 40px;
+      padding: 0 10px;
+      border-radius: 4px;
+      border: 2px solid var(--border-color);
+    }
+  }
+}
