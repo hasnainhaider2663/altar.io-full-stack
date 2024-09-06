@@ -25,13 +25,13 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 		}
 		grid.push(row);
 	}
-	console.log('old grid', grid);
+
 	if (biasCharacter && biasWeight) {
 		const flattenedArray = flattenGrid(grid); //flatten the array to make counting and indexing simpler
 		let occurrencesOfBiasedCharacter = flattenedArray.filter((x) => x === biasCharacter).length;
 
 		let isBiasMet = occurrencesOfBiasedCharacter < biasWeight * flattenedArray.length;
-		console.log('isBiasMet', isBiasMet);
+
 		// if biasCharacter and biasWeight exist and IF the bias was not met, force the bias with the character in random places
 		if (isBiasMet) {
 			grid = []; // reset the grid
@@ -50,7 +50,7 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 			}
 		}
 	}
-	console.log('new grid', grid);
+
 	const code = calculateCode(grid);
 
 	return { grid, code };
