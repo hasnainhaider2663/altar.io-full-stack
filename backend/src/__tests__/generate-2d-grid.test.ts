@@ -1,6 +1,6 @@
-import flattenGrid from '../helpers/flatten-grid';
-import generate2dGrid from '../helpers/generate-2d-grid';
-import generateRandomCharactor from '../helpers/generate-random-character';
+import flattenGrid from '../lib/flatten-grid';
+import generate2dGrid from '../lib/generate-2d-grid';
+import generateRandomCharactor from '../lib/generate-random-character';
 
 describe('generate2dGrid', () => {
 	beforeEach(() => {
@@ -25,7 +25,6 @@ describe('generate2dGrid', () => {
 	});
 	const biasWeight = 0.7;
 
-	
 	const numberOfRowsAndColumns = 10;
 
 	for (let index = 0; index < 1000; index++) {
