@@ -8,6 +8,14 @@ interface IGridProps {
 	biasWeight?: number;
 }
 export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharacter, biasWeight }: IGridProps) {
+	if (biasWeight && (biasWeight < 0 || biasWeight > 1)) {
+		throw 'Invalid Bias Weight';
+	}
+	biasCharacter = biasCharacter?.toLocaleLowerCase();
+	if (biasCharacter && !/^[a-z]$/.test(biasCharacter)) {
+		throw 'Invalid Bias Character';
+	}
+
 	let grid = [];
 	for (let i = 0; i < numberOfRowsAndColumns; i++) {
 		const row = [];
