@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import ApiResponse from 'src/app/models/api-response.model';
 
 @Component({
   selector: 'app-grid',
@@ -10,8 +11,7 @@ import { Observable } from 'rxjs';
   imports: [AsyncPipe],
 })
 export class GridComponent {
-  @Input() grid: string[][]=[];
+  @Input() grid$: Observable<ApiResponse> | null = null;
 
   constructor() {}
-  
 }

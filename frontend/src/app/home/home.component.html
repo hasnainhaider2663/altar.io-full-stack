@@ -8,9 +8,10 @@
 </div>
 
 
-<app-grid [grid]="grid"></app-grid>
+<app-grid [grid$]="grid$"></app-grid>
 
 <div class="footer">
   <div class="status"><span>Live</span></div>
-  <div class="code">Your Code : {{code}}</div>
+  <div class="code">Your Code : {{(grid$|async)?.code}}</div>
+
 </div>

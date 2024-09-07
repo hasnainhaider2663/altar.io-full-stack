@@ -1,5 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GridComponent } from '../components/grid/grid.component';
+import ApiResponse from '../models/api-response.model';
 import { ApiService } from '../services/api/api.service';
 
 @Component({
@@ -7,20 +10,13 @@ import { ApiService } from '../services/api/api.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [GridComponent],
+  imports: [GridComponent, AsyncPipe],
 })
 export class HomeComponent {
-  grid: string[][] = [];
-  code: string = '';
+  grid$: Observable<ApiResponse> | null = null;
   constructor(private apiService: ApiService) {}
 
-  subscribe() {
-    this.apiService.generateGrid().subscribe((result) => {
-      this.grid = result.grid;
-      this.code = result.code;
-    });
-  }
   ngOnInit(): void {
-    this.subscribe();
+    this.grid$ = this.apiService.generateGrid();
   }
 }
