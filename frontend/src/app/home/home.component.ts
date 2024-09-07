@@ -11,11 +11,13 @@ import { ApiService } from '../services/api/api.service';
 })
 export class HomeComponent {
   grid: string[][] = [];
+  code: string = '';
   constructor(private apiService: ApiService) {}
 
   subscribe() {
     this.apiService.generateGrid().subscribe((result) => {
       this.grid = result.grid;
+      this.code = result.code;
     });
   }
   ngOnInit(): void {

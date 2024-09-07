@@ -10,7 +10,6 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   generateGrid(biasCharacter?: string, biasWeight?: number) {
-    console.log('x');
     return this.httpClient.post<ApiResponse>(
       environment.apiUrl + environment.generateGridUrl,
       { biasCharacter, biasWeight }
