@@ -16,7 +16,9 @@ export class HomeComponent {
   grid$: Observable<ApiResponse> | null = null;
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {
-    this.grid$ = this.apiService.generateGrid();
+  generate2dGridClicked() {
+    if (this.grid$ === null) {
+      this.grid$ = this.apiService.generateGrid();
+    }
   }
 }
