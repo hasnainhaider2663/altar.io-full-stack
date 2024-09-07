@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GridComponent } from '../components/grid/grid.component';
 import { ApiService } from '../services/api/api.service';
 
@@ -9,11 +9,16 @@ import { ApiService } from '../services/api/api.service';
   standalone: true,
   imports: [GridComponent],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  grid: string[][] = [];
   constructor(private apiService: ApiService) {}
-  ngOnInit(): void {
-    this.apiService.generateGrid().subscribe((x) => {
-      console.log(x);
+
+  subscribe() {
+    this.apiService.generateGrid().subscribe((result) => {
+      this.grid = result.grid;
     });
+  }
+  ngOnInit(): void {
+    this.subscribe();
   }
 }
