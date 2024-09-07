@@ -1,9 +1,10 @@
 <div class="header">
   <div class="input-block">
     <label for="Character">Character</label>
-    <input type="text" placeholder="Character" id="Character">
+    <input id="Character" type="text" maxlength="1" (keydown)="onCharactedChanged($event)"
+      placeholder="Character  (a-z)" [disabled]="inputDisabled">
   </div>
-  <img src="./../../assets/img/clock.svg" alt="">
+  <img src="./../../assets/img/clock.svg" alt="logo">
   <button (click)="generate2dGridClicked()">Generate 2d Grid</button>
 </div>
 
