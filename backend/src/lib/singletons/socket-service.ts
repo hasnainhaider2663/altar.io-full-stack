@@ -2,6 +2,7 @@ import { Server as HttpServer } from 'http';
 import { Server, Socket } from 'socket.io';
 import { Payment } from '../../models/Payment';
 import generate2dGrid from '../generate-2d-grid';
+import PaymentsDbService from './payments-db-service';
 
 class SocketService {
 	private static instance: Server;
@@ -14,6 +15,11 @@ class SocketService {
 
 			SocketService.instance.on('connection', (socket) => {
 				console.log('A user connected');
+
+				//send all payments to a client when it connects
+				const payments = PaymentsDbService.getInstance().getAllPayments();
+				socket.emit('payments-updated', payments);
+
 				socket.on('disconnect', () => {
 					console.log('A user disconnected');
 				});
@@ -34,8 +40,11 @@ class SocketService {
 	// Payment Events
 	private static newPayment = (socket: Socket) => (payment: Payment) => {
 		console.log('new payment', payment);
-		socket.emit('payments-updated', [payment]);
-		socket.broadcast.emit('payments-updated', [payment]);
+
+		PaymentsDbService.getInstance().createPayment(payment);
+		const payments = PaymentsDbService.getInstance().getAllPayments();
+		socket.emit('payments-updated', payments);
+		socket.broadcast.emit('payments-updated', payments);
 	};
 
 	// Grid Events
