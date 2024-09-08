@@ -31,9 +31,14 @@ class SocketService {
 		return SocketService.instance;
 	}
 
+	// Payment Events
 	private static newPayment = (socket: Socket) => (payment: Payment) => {
-		socket.broadcast.emit('payments-updated', payment);
+		console.log('new payment', payment);
+		socket.emit('payments-updated', [payment]);
+		socket.broadcast.emit('payments-updated', [payment]);
 	};
+
+	// Grid Events
 	private static stopAllExceptCurrentFromEmitting = (socket: Socket) => (id: string) => {
 		socket.broadcast.emit('stop-emitting', id);
 	};

@@ -1,9 +1,16 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import ApiResponse from '../models/api-response.model';
+import { Payment } from '../models/payment';
 import { GridService } from '../services/grid/grid.service';
+import { PaymentsService } from '../services/payments/payments.service';
 
 @Component({
   selector: 'app-payments',
@@ -14,19 +21,32 @@ import { GridService } from '../services/grid/grid.service';
 })
 export class PaymentsComponent {
   grid$: Observable<ApiResponse | null>;
+  payments$: Observable<Payment[] | null>;
   form: FormGroup;
-  constructor(private gridService: GridService) {
+  constructor(
+    private gridService: GridService,
+    private paymentsService: PaymentsService
+  ) {
     this.grid$ = this.gridService.getGrid();
+    this.payments$ = this.paymentsService.getPayments();
 
     this.form = new FormGroup({
-      payment: new FormControl(''),
-      amount: new FormControl(''),
+      payment: new FormControl('', [Validators.required]),
+      amount: new FormControl(0, [Validators.required]),
+      code: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    });
+
+    this.grid$.subscribe((gridVal) => {
+      this.form.patchValue({ code: gridVal?.code });
     });
   }
 
   onSubmit() {
     console.log(this.form.value);
-
+    if (!this.form.value.code) {
+      return alert('Start the Grid Generation First ');
+    }
+    this.paymentsService.sendNewPayment(this.form.value);
     this.form.reset();
   }
 }
