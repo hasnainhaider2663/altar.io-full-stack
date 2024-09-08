@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { interval, Observable } from 'rxjs';
 import { GridComponent } from '../components/grid/grid.component';
 import ApiResponse from '../models/api-response.model';
-import { ApiService } from '../services/api/api.service';
+import { GridService } from '../services/grid/grid.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +15,10 @@ import { ApiService } from '../services/api/api.service';
 export class HomeComponent implements OnInit {
   grid$: Observable<ApiResponse | null>;
   inputDisabled = false;
-  key?: string='';
+  key?: string = '';
   bias?: number;
-  constructor(private apiService: ApiService) {
-    this.grid$ = this.apiService.getGrid();
+  constructor(private gridService: GridService) {
+    this.grid$ = this.gridService.getGrid();
     this.grid$.subscribe((result) => {
       this.key = result?.biasCharacter;
     });
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   generate2dGridClicked() {
-    this.apiService.generateGrid(this.key, this.bias);
+    this.gridService.generateGrid(this.key, this.bias);
   }
   onCharactedChanged(event: KeyboardEvent) {
     const regex = /^[a-z]+$/;
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     if (key === 'Backspace' || key === 'Delete') {
       input.value = '';
       this.key = undefined;
-      this.apiService.generateGrid();
+      this.gridService.generateGrid();
       return;
     }
     // Allow special keys
@@ -61,6 +61,6 @@ export class HomeComponent implements OnInit {
     this.key = key;
     this.bias = 0.2;
 
-    this.apiService.generateGrid(this.key, this.bias);
+    this.gridService.generateGrid(this.key, this.bias);
   }
 }

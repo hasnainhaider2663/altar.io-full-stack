@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import ApiResponse from '../models/api-response.model';
-import { ApiService } from '../services/api/api.service';
+import { GridService } from '../services/grid/grid.service';
 
 @Component({
   selector: 'app-payments',
@@ -15,8 +15,8 @@ import { ApiService } from '../services/api/api.service';
 export class PaymentsComponent {
   grid$: Observable<ApiResponse | null>;
   form: FormGroup;
-  constructor(private apiService: ApiService) {
-    this.grid$ = this.apiService.getGrid();
+  constructor(private gridService: GridService) {
+    this.grid$ = this.gridService.getGrid();
 
     this.form = new FormGroup({
       payment: new FormControl(''),

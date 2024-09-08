@@ -7,7 +7,7 @@ import ApiResponse from 'src/app/models/api-response.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
+export class GridService {
   private socket: Socket;
 
   private gridSubject = new BehaviorSubject<ApiResponse | null>(null);
