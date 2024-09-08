@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { interval, switchMap } from 'rxjs';
+import { io, Socket } from 'socket.io-client';
 import ApiResponse from 'src/app/models/api-response.model';
 import { environment } from 'src/environments/environment.development';
 
@@ -8,7 +9,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private httpClient: HttpClient) {}
+  private socket: Socket;
+
+  constructor(private httpClient: HttpClient) {
+    this.socket = io('http://localhost:3000', { autoConnect: true });
+  }
 
   generateGrid(biasCharacter?: string, biasWeight?: number) {
     return interval(2000).pipe(

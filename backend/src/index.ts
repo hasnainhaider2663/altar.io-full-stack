@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import { Server } from 'socket.io';
 import gridRouter from './controllers/grid-controller';
+import SocketService from './lib/singletons/socket-service';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,20 +16,8 @@ app.use(express.json());
 const httpServer = app.listen(port, () => {
 	console.log(`Server running at http://localhost:${port}`);
 });
-
-const io = new Server(httpServer, {
-	cors: corsOptions,
-});
+SocketService.initialize(httpServer);
 
 app.use(cors(corsOptions));
 
 app.use('/grid', gridRouter);
-
-io.on('connection', (socket) => {
-	console.log('A user connected');
-
-	// You can handle custom events here
-	socket.on('disconnect', () => {
-		console.log('A user disconnected');
-	});
-});
