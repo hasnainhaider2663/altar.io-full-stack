@@ -1,5 +1,5 @@
 <div class="container">
-  @if(grid$!==null && ((grid$ | async)?.grid?.length ?? 0 > 0) ){
+  @if(((grid$ | async)?.grid?.length ?? 0 > 0) ){
   <div class="grid">
 
     @for (row of (grid$|async)?.grid; track $index) {

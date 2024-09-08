@@ -13,11 +13,13 @@ import { ApiService } from '../services/api/api.service';
   imports: [GridComponent, AsyncPipe],
 })
 export class HomeComponent implements OnInit {
-  grid$: Observable<ApiResponse> | null = null;
+  grid$: Observable<ApiResponse | null>;
   inputDisabled = false;
   key?: string;
   bias?: number;
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.grid$ = this.apiService.getGrid();
+  }
 
   ngOnInit(): void {
     interval(4000).subscribe(() => {
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   generate2dGridClicked() {
-    this.grid$ = this.apiService.generateGrid(this.key, this.bias);
+    this.apiService.generateGrid(this.key, this.bias);
   }
   onCharactedChanged(event: KeyboardEvent) {
     const regex = /^[a-z]+$/;
@@ -35,7 +37,7 @@ export class HomeComponent implements OnInit {
     if (key === 'Backspace' || key === 'Delete') {
       input.value = '';
       this.key = undefined;
-      this.grid$ = this.apiService.generateGrid();
+      this.apiService.generateGrid();
       return;
     }
     // Allow special keys
@@ -56,6 +58,6 @@ export class HomeComponent implements OnInit {
     this.key = key;
     this.bias = 0.2;
 
-    this.grid$ = this.apiService.generateGrid(this.key, this.bias);
+    this.apiService.generateGrid(this.key, this.bias);
   }
 }

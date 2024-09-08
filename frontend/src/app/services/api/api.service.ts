@@ -1,29 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { interval, switchMap } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import ApiResponse from 'src/app/models/api-response.model';
-import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private socket: Socket;
+  private gridSubject = new BehaviorSubject<ApiResponse | null>(null);
+  private grid$ = this.gridSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {
     this.socket = io('http://localhost:3000', { autoConnect: true });
-  }
 
+    this.socket.on('grid-updated', (result) => {
+      console.log('grid-updated', result);
+      this.gridSubject.next(result);
+    });
+  }
+  getGrid() {
+    return this.grid$;
+  }
   generateGrid(biasCharacter?: string, biasWeight?: number) {
-    return interval(2000).pipe(
-      // transform the emit from interval to an API Call and Cancel the previous one if it's pending
-      switchMap(() =>
-        this.httpClient.post<ApiResponse>(
-          environment.apiUrl + environment.generateGridUrl,
-          { biasCharacter, biasWeight }
-        )
-      )
-    );
+    interval(2000).subscribe((x) => {
+      this.socket.emit('generate-grid', {
+        biasCharacter,
+        biasWeight,
+      });
+    });
   }
 }
