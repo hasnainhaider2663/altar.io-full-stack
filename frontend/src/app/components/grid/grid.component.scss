@@ -15,6 +15,10 @@
       align-items: center;
       font-size: 1.2rem;
       padding: 10px 5px;
+      &.letter-key {
+        background: rgb(235, 235, 235);
+      }
+
       @media (max-width: 440px) {
         padding: 5px 0;
       }

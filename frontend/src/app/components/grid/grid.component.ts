@@ -12,6 +12,7 @@ import ApiResponse from 'src/app/models/api-response.model';
 })
 export class GridComponent {
   @Input() grid$: Observable<ApiResponse> | null = null;
+  @Input() key?: string;
 
   constructor() {}
 }

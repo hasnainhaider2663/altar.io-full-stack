@@ -5,7 +5,7 @@
     @for (row of (grid$|async)?.grid; track $index) {
 
     @for (letter of row; track ('row-item-'+$index);let i=$count) {
-    <div>
+    <div [className]="key===letter?'letter-key':''">
       {{letter}}
     </div>
     }

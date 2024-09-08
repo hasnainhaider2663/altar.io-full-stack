@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   key?: string;
   bias?: number;
   constructor(private apiService: ApiService) {}
+
   ngOnInit(): void {
     interval(4000).subscribe(() => {
       this.inputDisabled = !this.inputDisabled;
@@ -30,25 +31,31 @@ export class HomeComponent implements OnInit {
   onCharactedChanged(event: KeyboardEvent) {
     const regex = /^[a-z]+$/;
     const { key } = event;
-
+    const input = event.target as HTMLInputElement;
+    if (key === 'Backspace' || key === 'Delete') {
+      input.value = '';
+      this.key = undefined;
+      this.grid$ = this.apiService.generateGrid();
+      return;
+    }
     // Allow special keys
     if (
-      key === 'Backspace' ||
       key === 'Tab' ||
       key === 'Enter' ||
       key === 'ArrowLeft' ||
-      key === 'ArrowRight' ||
-      key === 'Delete'
+      key === 'ArrowRight'
     ) {
       return;
     }
-    if (!regex.test(key)) {
+    if (!regex.test(key) || this.inputDisabled) {
       event.preventDefault();
       return;
     }
+    input.value = key;
+
     this.key = key;
     this.bias = 0.2;
 
-    this.grid$ = this.apiService.generateGrid(key, this.bias);
+    this.grid$ = this.apiService.generateGrid(this.key, this.bias);
   }
 }
