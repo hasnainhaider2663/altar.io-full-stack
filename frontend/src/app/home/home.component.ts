@@ -15,7 +15,8 @@ import { ApiService } from '../services/api/api.service';
 export class HomeComponent implements OnInit {
   grid$: Observable<ApiResponse> | null = null;
   inputDisabled = false;
-
+  key?: string;
+  bias?: number;
   constructor(private apiService: ApiService) {}
   ngOnInit(): void {
     interval(4000).subscribe(() => {
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   generate2dGridClicked() {
-    this.grid$ = this.apiService.generateGrid();
+    this.grid$ = this.apiService.generateGrid(this.key, this.bias);
   }
   onCharactedChanged(event: KeyboardEvent) {
     const regex = /^[a-z]+$/;
@@ -45,7 +46,9 @@ export class HomeComponent implements OnInit {
       event.preventDefault();
       return;
     }
+    this.key = key;
+    this.bias = 0.2;
 
-    this.grid$ = this.apiService.generateGrid(key, 0.9);
+    this.grid$ = this.apiService.generateGrid(key, this.bias);
   }
 }
