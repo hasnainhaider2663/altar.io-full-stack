@@ -2,14 +2,14 @@
   <div class="input-block">
     <label for="Character">Character</label>
     <input id="Character" type="text" maxlength="1" (keydown)="onCharactedChanged($event)"
-      placeholder="Character  (a-z)" [disabled]="inputDisabled">
+      placeholder=" {{inputDisabled?'Disabled':'Character  (a-z)'}}" [disabled]="inputDisabled">
   </div>
   <img src="./../../assets/img/clock.svg" alt="logo">
   <button (click)="generate2dGridClicked()">Generate 2d Grid</button>
 </div>
 
 
-<app-grid [grid$]="grid$"></app-grid>
+<app-grid [grid$]="grid$" />
 
 <div class="footer">
   <div class="status"><span>Live</span></div>
