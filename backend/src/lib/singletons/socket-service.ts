@@ -5,13 +5,10 @@ import generate2dGrid from '../generate-2d-grid';
 class SocketService {
 	private static instance: Server;
 
-	public static initialize(httpServer: HttpServer): Server {
+	public static initialize(httpServer: HttpServer, cors: any): Server {
 		if (!SocketService.instance) {
 			SocketService.instance = new Server(httpServer, {
-				cors: {
-					origin: 'http://localhost:4200',
-					methods: ['GET', 'POST'],
-				},
+				cors,
 			});
 
 			SocketService.instance.on('connection', (socket) => {
@@ -21,12 +18,18 @@ class SocketService {
 				});
 
 				socket.on('generate-grid', (data) => {
-					console.log(data);
-					console.log('generate-grid');
+					socket.broadcast.emit('stop-emitting', data.id);
+
 					const { biasCharacter, biasWeight } = data;
 					const result = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight });
+
 					socket.emit('grid-updated', result);
 					socket.broadcast.emit('grid-updated', result);
+				});
+
+				socket.on('stop-emitting-all-except', (id) => {
+					socket.emit('stop-emitting', id);
+					socket.broadcast.emit('stop-emitting', id);
 				});
 			});
 		}

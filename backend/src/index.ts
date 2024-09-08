@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-	origin: 'http://localhost:4200',
+	origin: ['http://localhost:4200', 'http://localhost:5555'],
 	methods: ['GET', 'POST'],
 };
 
@@ -16,7 +16,7 @@ app.use(express.json());
 const httpServer = app.listen(port, () => {
 	console.log(`Server running at http://localhost:${port}`);
 });
-SocketService.initialize(httpServer);
+SocketService.initialize(httpServer,corsOptions);
 
 app.use(cors(corsOptions));
 

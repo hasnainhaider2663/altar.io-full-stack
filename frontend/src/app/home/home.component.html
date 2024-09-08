@@ -2,7 +2,7 @@
   <div class="input-block">
     <label for="Character">Character</label>
     <input id="Character" [value]="key||''" [className]="inputDisabled?'input-disabled':''" type="text" maxlength="1"
-      (keydown)="onCharactedChanged($event)" placeholder=" {{inputDisabled?'Disabled':'Character  (a-z)'}}">
+      (keyup)="onCharactedChanged($event)" placeholder=" {{inputDisabled?'Disabled':'Character  (a-z)'}}">
   </div>
   <img src="./../../assets/img/clock.svg" alt="logo">
   <button (click)="generate2dGridClicked()">Generate 2d Grid</button>
