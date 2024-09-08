@@ -17,6 +17,7 @@ class SocketService {
 					console.log('A user disconnected');
 				});
 
+				//generates a 10x10 grid
 				socket.on('generate-grid', (data) => {
 					socket.broadcast.emit('stop-emitting', data.id);
 
@@ -27,8 +28,8 @@ class SocketService {
 					socket.broadcast.emit('grid-updated', result);
 				});
 
+				// stops other clients (other than the one firing the event) from emitting their key every 2 seconds
 				socket.on('stop-emitting-all-except', (id) => {
-					socket.emit('stop-emitting', id);
 					socket.broadcast.emit('stop-emitting', id);
 				});
 			});

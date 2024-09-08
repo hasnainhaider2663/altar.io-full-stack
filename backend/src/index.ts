@@ -16,7 +16,9 @@ app.use(express.json());
 const httpServer = app.listen(port, () => {
 	console.log(`Server running at http://localhost:${port}`);
 });
-SocketService.initialize(httpServer,corsOptions);
+
+// initialize socket.io
+SocketService.initialize(httpServer, corsOptions);
 
 app.use(cors(corsOptions));
 
