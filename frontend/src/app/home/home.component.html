@@ -1,7 +1,7 @@
 <div class="header">
   <div class="input-block">
     <label for="Character">Character</label>
-    <input id="Character" [className]="inputDisabled?'input-disabled':''" type="text" maxlength="1"
+    <input id="Character" [value]="key||''" [className]="inputDisabled?'input-disabled':''" type="text" maxlength="1"
       (keydown)="onCharactedChanged($event)" placeholder=" {{inputDisabled?'Disabled':'Character  (a-z)'}}">
   </div>
   <img src="./../../assets/img/clock.svg" alt="logo">

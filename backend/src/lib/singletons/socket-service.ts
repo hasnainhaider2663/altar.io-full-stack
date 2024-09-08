@@ -26,6 +26,7 @@ class SocketService {
 					const { biasCharacter, biasWeight } = data;
 					const result = generate2dGrid({ numberOfRowsAndColumns: 10, biasCharacter, biasWeight });
 					socket.emit('grid-updated', result);
+					socket.broadcast.emit('grid-updated', result);
 				});
 			});
 		}

@@ -53,5 +53,5 @@ export default function generate2dGrid({ numberOfRowsAndColumns = 10, biasCharac
 
 	const code = calculateCode(grid);
 
-	return { grid, code };
+	return { grid, code, biasCharacter };
 }

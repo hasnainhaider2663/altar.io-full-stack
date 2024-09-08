@@ -15,10 +15,13 @@ import { ApiService } from '../services/api/api.service';
 export class HomeComponent implements OnInit {
   grid$: Observable<ApiResponse | null>;
   inputDisabled = false;
-  key?: string;
+  key?: string='';
   bias?: number;
   constructor(private apiService: ApiService) {
     this.grid$ = this.apiService.getGrid();
+    this.grid$.subscribe((result) => {
+      this.key = result?.biasCharacter;
+    });
   }
 
   ngOnInit(): void {
