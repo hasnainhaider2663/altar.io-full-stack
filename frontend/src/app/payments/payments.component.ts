@@ -23,11 +23,13 @@ export class PaymentsComponent {
   grid$: Observable<ApiResponse | null>;
   payments$: Observable<Payment[] | null>;
   form: FormGroup;
+  isGridInitialized = false;
   constructor(
     private gridService: GridService,
     private paymentsService: PaymentsService
   ) {
     this.grid$ = this.gridService.getGrid();
+
     this.payments$ = this.paymentsService.getPayments();
 
     this.form = new FormGroup({
@@ -37,14 +39,21 @@ export class PaymentsComponent {
     });
 
     this.grid$.subscribe((gridVal) => {
+      this.isGridInitialized = !!gridVal?.code;
       this.form.patchValue({ code: gridVal?.code });
     });
+
+    setTimeout(() => {
+      if (!this.isGridInitialized) {
+        this.gridService.generateGrid();
+      }
+    }, 2000);
   }
 
   onSubmit() {
     console.log(this.form.value);
     if (!this.form.value.code) {
-      return alert('Start the Grid Generation First ');
+      return alert('Wait for Grid Generation');
     }
     this.paymentsService.sendNewPayment(this.form.value);
     this.form.reset();
