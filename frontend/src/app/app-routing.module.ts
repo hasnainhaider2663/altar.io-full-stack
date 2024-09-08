@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'payments',
+    loadComponent: () =>
+      import('./payments/payments.component').then((m) => m.PaymentsComponent),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
