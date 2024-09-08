@@ -7,6 +7,7 @@
 - Handles conflicts between inputs from different clients
 - Implements data persistance using SQLite3 and Better Sqlite plugin
 
+#### Note : When the input control is highlighted as red, it means your input will be ignored for 4 seconds.
 
 ## How to Run the project
 
