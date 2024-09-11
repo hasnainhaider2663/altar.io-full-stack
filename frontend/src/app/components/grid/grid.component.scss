@@ -1,0 +1,33 @@
+.container {
+  max-width: var(--container-width);
+  margin: 50px auto;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); // Creates 10 equal columns
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    min-height: calc(60vh - 100px);
+    div {
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      padding: 10px 5px;
+      &.letter-key {
+        background: rgb(235, 235, 235);
+      }
+
+      @media (max-width: 440px) {
+        padding: 5px 0;
+      }
+    }
+  }
+  .no-data-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(60vh - 100px);
+  }
+}

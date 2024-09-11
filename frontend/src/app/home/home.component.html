@@ -1,0 +1,18 @@
+<div class="header">
+  <div class="input-block">
+    <label for="Character">Character</label>
+    <input id="Character" [value]="key||''" [className]="inputDisabled?'input-disabled':''" type="text" maxlength="1"
+      (keyup)="onCharactedChanged($event)" placeholder=" {{inputDisabled?'Disabled':'Character  (a-z)'}}">
+  </div>
+  <img src="./../../assets/img/clock.svg" alt="logo">
+  <button (click)="generate2dGridClicked()">Generate 2d Grid</button>
+</div>
+
+
+<app-grid [grid$]="grid$" [key]="key" />
+
+<div class="footer">
+  <div class="status"><span>Live</span></div>
+  <div class="code">Your Code : {{(grid$|async)?.code}}</div>
+
+</div>

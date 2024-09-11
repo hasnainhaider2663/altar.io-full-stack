@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --border-color: rgba(0, 0, 0, 0.3);
+  --primary-color: #7fa1c3;
+  --container-width: 960px;
+}
+html,
+body {
+  font-family: sans-serif;
+}
